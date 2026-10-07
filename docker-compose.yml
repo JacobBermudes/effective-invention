@@ -1,6 +1,6 @@
 services:
   yggdrasil:
-    image: yggdrasilnetwork/yggdrasil-go:latest
+    image: ghcr.io/yggdrasil-network/yggdrasil-go:latest
     container_name: ygg_exit_node
     network_mode: "host"
     cap_add:
