@@ -7,7 +7,11 @@ echo "Check and generate Yggdrasil configuration..."
 if [ -f "$CONFIG_FILE" ]; then
     echo "File $CONFIG_FILE already exists. Skipping generation to preserve keys and IP address."
 else
-    docker run --rm yggdrasilnetwork/yggdrasil-go:latest -genconf > "$CONFIG_FILE"
+    docker run --rm \
+      --device /dev/net/tun:/dev/net/tun \
+      --cap-add NET_ADMIN \
+      --cap-add NET_RAW \
+      yggdrasilnetwork/yggdrasil-go:latest -genconf > "$CONFIG_FILE"
     echo "$CONFIG_FILE generated."
 fi
 
