@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   yggdrasil:
     image: yggdrasilnetwork/yggdrasil-go:latest
@@ -11,7 +9,7 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
-      - ./yggdrasil.conf:/etc/yggdrasil/yggdrasil.conf
+      - ./yggdrasil.conf:/etc/yggdrasil-network/config.conf
       - ygg_admin_sock:/var/run/yggdrasil
     restart: unless-stopped
 
