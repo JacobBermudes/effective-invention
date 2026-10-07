@@ -2,7 +2,7 @@
 ./initScript.sh
 
 # Step 2
-./setup-yggdrasil.sh
+sudo ./setup-yggdrasil.sh
 
 # Step 3
 docker compose up -d
