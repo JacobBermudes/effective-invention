@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  yggdrasil:
+    image: yggdrasilnetwork/yggdrasil-go:latest
+    container_name: ygg_exit_node
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - ./yggdrasil.conf:/etc/yggdrasil/yggdrasil.conf
+      - ygg_admin_sock:/var/run/yggdrasil
+    restart: unless-stopped
+
+  api-sidecar:
+    image: jacobbermudes/ygg-api:latest 
+    container_name: ygg_api_sidecar
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ygg_admin_sock:/var/run/yggdrasil
+    depends_on:
+      - yggdrasil
+    restart: unless-stopped
+
+volumes:
+  ygg_admin_sock:
