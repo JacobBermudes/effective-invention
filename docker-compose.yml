@@ -25,5 +25,14 @@ services:
       - yggdrasil
     restart: unless-stopped
 
+  socks5:
+    image: gogost/gost:latest
+    container_name: socks5_exit
+    network_mode: "host"
+    depends_on:
+      - yggdrasil
+    command: -L "socks5://[202:7bf7:a058:5871:d6d9:dedc:fb85:7046]:1080"
+    restart: unless-stopped
+
 volumes:
   ygg_admin_sock:
