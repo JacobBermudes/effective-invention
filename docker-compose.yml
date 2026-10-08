@@ -9,9 +9,8 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
-      - ./yggdrasil.conf:/etc/yggdrasil.conf
+      - ./yggdrasil.conf:/etc/yggdrasil-network/config.conf
       - ygg_admin_sock:/var/run/yggdrasil
-    command: ["-useconffile", "/etc/yggdrasil.conf"]
     restart: unless-stopped
 
   api-sidecar:

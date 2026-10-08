@@ -17,6 +17,7 @@ echo "Setting up kernel routing..."
 cat <<EOF > /etc/sysctl.d/99-yggdrasil-exit-node.conf
 net.ipv4.ip_forward=1
 net.ipv6.conf.all.forwarding=1
+net.ipv6.ip_nonlocal_bind=1
 EOF
 sysctl --system
 
