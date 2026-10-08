@@ -9,8 +9,9 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
-      - ./yggdrasil.conf:/etc/yggdrasil-network/config.conf
+      - ./yggdrasil.conf:/etc/yggdrasil.conf
       - ygg_admin_sock:/var/run/yggdrasil
+    command: ["-useconffile", "/etc/yggdrasil.conf"]
     restart: unless-stopped
 
   api-sidecar:
@@ -26,11 +27,13 @@ services:
     restart: unless-stopped
 
   socks5:
-      image: ginuerzh/gost
-      container_name: ygg_socks5
-      network_mode: "host"
-      command: ["-L", "socks5://:1080"]
-      restart: unless-stopped
+    image: ginuerzh/gost
+    container_name: ygg_socks5
+    network_mode: "host"
+    depends_on:
+      - yggdrasil
+    command: ["-L", "socks5://${YGG_IP}:1080"]
+    restart: unless-stopped
 
 volumes:
   ygg_admin_sock:
